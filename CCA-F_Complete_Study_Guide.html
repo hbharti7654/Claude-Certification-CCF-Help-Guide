@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CCA-F Complete Study Guide — Claude Certified Architect Foundations</title>
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #151820;
+    --surface2: #1c2030;
+    --border: #252b3b;
+    --accent: #6c63ff;
+    --accent2: #00d4aa;
+    --accent3: #ff6b6b;
+    --accent4: #ffd166;
+    --text: #e4e8f0;
+    --muted: #8892a4;
+    --d1: #a78bfa;
+    --d2: #34d399;
+    --d3: #60a5fa;
+    --d4: #fb923c;
+    --d5: #f472b6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(13,15,20,0.95);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 32px;
+    display: flex; align-items: center; gap: 24px;
+    backdrop-filter: blur(8px);
+    flex-wrap: wrap;
+  }
+  nav .brand { font-weight: 700; font-size: 14px; color: var(--accent); letter-spacing: 0.05em; white-space: nowrap; }
+  nav a {
+    color: var(--muted); text-decoration: none; font-size: 13px;
+    transition: color .15s;
+  }
+  nav a:hover { color: var(--text); }
+
+  /* LAYOUT */
+  .container { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* HERO */
+  .hero {
+    text-align: center;
+    padding: 60px 0 48px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .hero .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(108,99,255,.2), rgba(0,212,170,.2));
+    border: 1px solid rgba(108,99,255,.4);
+    border-radius: 999px;
+    padding: 4px 16px;
+    font-size: 12px; font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.08em; text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 800;
+    line-height: 1.15;
+    background: linear-gradient(135deg, #fff 40%, var(--accent));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+  }
+  .hero p { color: var(--muted); font-size: 16px; max-width: 600px; margin: 0 auto; }
+
+  /* EXAM STATS */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 16px;
+    text-align: center;
+  }
+  .stat-card .num {
+    font-size: 28px; font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat-card .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+
+  /* SECTION */
+  h2 {
+    font-size: 22px; font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    color: #fff;
+  }
+  h3 { font-size: 17px; font-weight: 700; margin: 28px 0 12px; color: #fff; }
+  h4 { font-size: 14px; font-weight: 700; margin: 16px 0 8px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.07em; }
+
+  p { margin-bottom: 12px; color: var(--text); }
+  ul, ol { padding-left: 20px; margin-bottom: 12px; }
+  li { margin-bottom: 6px; }
+  strong { color: #fff; }
+
+  section { margin-bottom: 60px; }
+
+  /* DOMAIN CARDS */
+  .domain-bar {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .domain-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid;
+    border-radius: 8px;
+    padding: 16px 20px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .domain-item:nth-child(1) { border-left-color: var(--d1); }
+  .domain-item:nth-child(2) { border-left-color: var(--d2); }
+  .domain-item:nth-child(3) { border-left-color: var(--d3); }
+  .domain-item:nth-child(4) { border-left-color: var(--d4); }
+  .domain-item:nth-child(5) { border-left-color: var(--d5); }
+  .domain-pct {
+    font-size: 24px; font-weight: 800; min-width: 56px; text-align: center;
+  }
+  .domain-item:nth-child(1) .domain-pct { color: var(--d1); }
+  .domain-item:nth-child(2) .domain-pct { color: var(--d2); }
+  .domain-item:nth-child(3) .domain-pct { color: var(--d3); }
+  .domain-item:nth-child(4) .domain-pct { color: var(--d4); }
+  .domain-item:nth-child(5) .domain-pct { color: var(--d5); }
+  .domain-info .name { font-weight: 700; color: #fff; font-size: 15px; }
+  .domain-info .desc { color: var(--muted); font-size: 13px; margin-top: 2px; }
+  .domain-bar-fill {
+    height: 6px; background: var(--border); border-radius: 3px;
+    flex: 1; overflow: hidden;
+  }
+  .domain-bar-fill-inner {
+    height: 100%; border-radius: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+
+  /* CALLOUT BOXES */
+  .callout {
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    border: 1px solid;
+  }
+  .callout.tip { background: rgba(0,212,170,.07); border-color: rgba(0,212,170,.3); }
+  .callout.warn { background: rgba(255,107,107,.07); border-color: rgba(255,107,107,.3); }
+  .callout.key { background: rgba(108,99,255,.07); border-color: rgba(108,99,255,.3); }
+  .callout.exam { background: rgba(255,209,102,.07); border-color: rgba(255,209,102,.3); }
+  .callout-title {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.08em; margin-bottom: 8px;
+  }
+  .callout.tip .callout-title { color: var(--accent2); }
+  .callout.warn .callout-title { color: var(--accent3); }
+  .callout.key .callout-title { color: var(--accent); }
+  .callout.exam .callout-title { color: var(--accent4); }
+
+  /* CODE */
+  code {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-family: 'Consolas', 'Menlo', monospace;
+    font-size: 13px;
+    color: var(--accent2);
+  }
+  pre {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    overflow-x: auto;
+    margin: 12px 0;
+  }
+  pre code { background: none; border: none; padding: 0; color: var(--accent2); }
+
+  /* SCENARIO CARDS */
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+  }
+  .scenario-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+  }
+  .scenario-card .snum {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--accent); margin-bottom: 8px;
+  }
+  .scenario-card .stitle { font-weight: 700; font-size: 14px; color: #fff; margin-bottom: 8px; }
+  .scenario-card .sdesc { font-size: 13px; color: var(--muted); }
+
+  /* ANSWER STRATEGY */
+  .strategy-steps {
+    counter-reset: step;
+    list-style: none; padding: 0;
+  }
+  .strategy-steps li {
+    counter-increment: step;
+    display: flex; gap: 16px; margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .strategy-steps li::before {
+    content: counter(step);
+    background: var(--accent);
+    color: #fff;
+    min-width: 28px; height: 28px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px;
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  /* TRAP TABLE */
+  table {
+    width: 100%; border-collapse: collapse; margin: 16px 0;
+    font-size: 13px;
+  }
+  th {
+    background: var(--surface2);
+    padding: 10px 14px; text-align: left;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.07em;
+    color: var(--muted); text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  tr:last-child td { border-bottom: none; }
+  .wrong { color: var(--accent3); font-weight: 600; }
+  .right { color: var(--accent2); font-weight: 600; }
+
+  /* QUICK REF */
+  .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+  .ref-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+  }
+  .ref-card .rtitle {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.07em; color: var(--accent4); margin-bottom: 8px;
+  }
+  .ref-card ul { padding-left: 16px; }
+  .ref-card li { font-size: 12px; color: var(--text); margin-bottom: 4px; }
+
+  /* TOC */
+  .toc {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 48px;
+  }
+  .toc h3 { margin-top: 0; color: var(--accent); }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin-bottom: 6px; }
+  .toc a { color: var(--muted); text-decoration: none; font-size: 14px; }
+  .toc a:hover { color: var(--text); }
+
+  /* PROGRESS INDICATOR */
+  .domain-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 8px;
+  }
+  .domain-tag {
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; padding: 3px 10px;
+    border-radius: 999px; border: 1px solid;
+  }
+  .d1-tag { color: var(--d1); border-color: var(--d1); background: rgba(167,139,250,.08); }
+  .d2-tag { color: var(--d2); border-color: var(--d2); background: rgba(52,211,153,.08); }
+  .d3-tag { color: var(--d3); border-color: var(--d3); background: rgba(96,165,250,.08); }
+  .d4-tag { color: var(--d4); border-color: var(--d4); background: rgba(251,146,60,.08); }
+  .d5-tag { color: var(--d5); border-color: var(--d5); background: rgba(244,114,182,.08); }
+
+  /* CONCEPT CARDS */
+  .concept-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px; margin: 16px 0;
+  }
+  .concept-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .concept-card .cterm { font-weight: 700; color: #fff; font-size: 14px; margin-bottom: 4px; }
+  .concept-card .cdef { font-size: 13px; color: var(--muted); }
+
+  @media(max-width: 600px) {
+    nav { padding: 10px 16px; }
+    .container { padding: 24px 16px 60px; }
+    .hero { padding: 40px 0 32px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="brand">CCA-F Study Guide</span>
+  <a href="#exam-details">Exam Details</a>
+  <a href="#answer-strategy">Answer Strategy</a>
+  <a href="#domain1">D1: Agentic</a>
+  <a href="#domain2">D2: Claude Code</a>
+  <a href="#domain3">D3: Prompt Eng</a>
+  <a href="#domain4">D4: Tool/MCP</a>
+  <a href="#domain5">D5: Context</a>
+  <a href="#quick-ref">Quick Ref</a>
+</nav>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="badge">Exam Crash Course</div>
+    <h1>Claude Certified Architect<br>Foundations (CCA-F)</h1>
+    <p>Everything you need to pass the exam — from format details and answer strategies to every domain taught from scratch.</p>
+  </div>
+
+  <!-- EXAM DETAILS -->
+  <section id="exam-details">
+    <h2>📋 Exam Details & Format</h2>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="num">60</div><div class="label">Questions</div></div>
+      <div class="stat-card"><div class="num">120</div><div class="label">Minutes</div></div>
+      <div class="stat-card"><div class="num">720</div><div class="label">Pass Score (of 1000)</div></div>
+      <div class="stat-card"><div class="num">$99</div><div class="label">Exam Fee (USD)</div></div>
+      <div class="stat-card"><div class="num">5</div><div class="label">Domains</div></div>
+      <div class="stat-card"><div class="num">4/6</div><div class="label">Scenarios Drawn</div></div>
+    </div>
+
+    <div class="callout key">
+      <div class="callout-title">⚡ Critical Format Facts</div>
+      <ul>
+        <li>All <strong>multiple choice, single correct answer</strong> (4 options each — one right, three distractors)</li>
+        <li>Questions are wrapped in <strong>6 real production scenarios</strong> — you get 4 randomly selected ones</li>
+        <li>Questions test <strong>architectural judgment</strong>, not trivia. "What should you do when X happens in production?"</li>
+        <li>Delivered online proctored or at a testing center</li>
+        <li>Hosted on Anthropic's Skilljar platform — access via the Claude Partner Network (free to join)</li>
+      </ul>
+    </div>
+
+    <h3>Domain Weights</h3>
+    <div class="domain-bar">
+      <div class="domain-item">
+        <div class="domain-pct">27%</div>
+        <div class="domain-info">
+          <div class="name">D1 — Agentic Architecture & Orchestration</div>
+          <div class="desc">~16 questions — the HEAVIEST domain</div>
+        </div>
+      </div>
+      <div class="domain-item">
+        <div class="domain-pct">20%</div>
+        <div class="domain-info">
+          <div class="name">D2 — Claude Code Configuration & Workflows</div>
+          <div class="desc">~12 questions</div>
+        </div>
+      </div>
+      <div class="domain-item">
+        <div class="domain-pct">20%</div>
+        <div class="domain-info">
+          <div class="name">D3 — Prompt Engineering & Structured Output</div>
+          <div class="desc">~12 questions</div>
+        </div>
+      </div>
+      <div class="domain-item">
+        <div class="domain-pct">18%</div>
+        <div class="domain-info">
+          <div class="name">D4 — Tool Design & MCP Integration</div>
+          <div class="desc">~11 questions</div>
+        </div>
+      </div>
+      <div class="domain-item">
+        <div class="domain-pct">15%</div>
+        <div class="domain-info">
+          <div class="name">D5 — Context Management & Reliability</div>
+          <div class="desc">~9 questions</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>The 6 Exam Scenarios</h3>
+    <p>You'll receive 4 of these 6 scenarios randomly. Questions are anchored to each scenario's context.</p>
+    <div class="scenario-grid">
+      <div class="scenario-card">
+        <div class="snum">Scenario 1</div>
+        <div class="stitle">Customer Support Resolution Agent</div>
+        <div class="sdesc">Returns, billing disputes, account issues. Focus: 80%+ first-contact resolution & smart escalation decisions.</div>
+      </div>
+      <div class="scenario-card">
+        <div class="snum">Scenario 2</div>
+        <div class="stitle">Code Generation with Claude Code</div>
+        <div class="sdesc">Team using Claude Code daily. Focus: CLAUDE.md config, slash commands, plan mode, prompting for code tasks.</div>
+      </div>
+      <div class="scenario-card">
+        <div class="snum">Scenario 3</div>
+        <div class="stitle">Multi-Agent Research System</div>
+        <div class="sdesc">Coordinator + 4 specialist subagents (search, analyze, synthesize, write). Focus: orchestration, context passing, failure handling.</div>
+      </div>
+      <div class="scenario-card">
+        <div class="snum">Scenario 4</div>
+        <div class="stitle">Developer Productivity Tools</div>
+        <div class="sdesc">Engineers navigating unfamiliar codebases. Focus: built-in tools (Read, Write, Bash, Grep, Glob) and MCP integration.</div>
+      </div>
+      <div class="scenario-card">
+        <div class="snum">Scenario 5</div>
+        <div class="stitle">Claude Code in CI/CD</div>
+        <div class="sdesc">Automated code reviews, test gen, PR feedback. Focus: <code>-p</code> flag, <code>--output-format json</code>, session isolation, false positive reduction.</div>
+      </div>
+      <div class="scenario-card">
+        <div class="snum">Scenario 6</div>
+        <div class="stitle">Structured Data Extraction</div>
+        <div class="sdesc">Pulling data from messy documents. Focus: JSON schemas, nullable fields to prevent hallucination, batch processing.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANSWER STRATEGY -->
+  <section id="answer-strategy">
+    <h2>🎯 How to Eliminate Wrong Options & Find Correct Answers</h2>
+
+    <p>The exam is about <strong>architectural judgment</strong>. There are consistent patterns in what's right and wrong. Master these and you'll eliminate 2 options immediately on most questions.</p>
+
+    <h3>The Elimination Framework</h3>
+    <ol class="strategy-steps">
+      <li><strong>Identify the question type.</strong> Is it about termination/control flow? Prompt design? Error handling? Tool schema design? Each type has its own "right answer DNA."</li>
+      <li><strong>Eliminate anything that hard-codes arbitrary limits.</strong> "Stop after 10 iterations regardless of state" is always wrong. Robust systems respond to real signals, not capped counters.</li>
+      <li><strong>Eliminate anything that parses natural language for control flow.</strong> "Check if the assistant text contains the word 'done'" is always wrong. Use <code>stop_reason</code>, structured output, or explicit signals.</li>
+      <li><strong>Eliminate anything that bypasses structured validation.</strong> "Trust the model output directly without schema validation" is wrong for production-critical data.</li>
+      <li><strong>Eliminate answers that share context where it should be isolated.</strong> Subagents should not share full conversation history between each other unless explicitly needed.</li>
+      <li><strong>Pick the answer that uses the official/explicit mechanism</strong> Claude provides for that use case.</li>
+    </ol>
+
+    <h3>Distractor Patterns to Watch For</h3>
+    <table>
+      <thead>
+        <tr><th>Distractor Type</th><th>Example (Wrong)</th><th>Why It's Wrong</th><th>Correct Pattern</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Arbitrary cap</td>
+          <td class="wrong">"Limit agent to 10 tool calls max"</td>
+          <td>Brittle — fails short, ignores completion signals</td>
+          <td class="right">Terminate on <code>stop_reason === "end_turn"</code></td>
+        </tr>
+        <tr>
+          <td>Natural language parsing</td>
+          <td class="wrong">"Stop if assistant says 'completed'"</td>
+          <td>Fragile string matching, not a proper contract</td>
+          <td class="right">Use structured stop signals or <code>stop_reason</code></td>
+        </tr>
+        <tr>
+          <td>Self-review illusion</td>
+          <td class="wrong">"Ask Claude to review its own output in the same turn"</td>
+          <td>Model retains generation context — can't catch its own errors</td>
+          <td class="right">Use a separate independent instance for review</td>
+        </tr>
+        <tr>
+          <td>Context leakage</td>
+          <td class="wrong">"Pass full orchestrator history to every subagent"</td>
+          <td>Pollutes reasoning, wastes tokens, causes confusion</td>
+          <td class="right">Pass only task-relevant context to each subagent</td>
+        </tr>
+        <tr>
+          <td>Prompt-only guardrail</td>
+          <td class="wrong">"Tell the model in the prompt not to access X"</td>
+          <td>Not enforceable — prompts are advisory</td>
+          <td class="right">Programmatic enforcement at the tool/infra layer</td>
+        </tr>
+        <tr>
+          <td>Overfat tools</td>
+          <td class="wrong">"Combine search + filter + summarize into one tool"</td>
+          <td>Forces the model to make interior decisions it can't steer</td>
+          <td class="right">Separate tools for each logical operation</td>
+        </tr>
+        <tr>
+          <td>No nullable fields</td>
+          <td class="wrong">"Require all fields in extraction schema"</td>
+          <td>Forces hallucination when data is absent</td>
+          <td class="right">Make optional fields nullable in JSON schema</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout exam">
+      <div class="callout-title">🏆 Golden Rules for This Exam</div>
+      <ul>
+        <li>The <strong>most robust, explicit, programmatic</strong> answer is almost always right</li>
+        <li>The <strong>most fragile, heuristic, or prompt-only</strong> answer is almost always wrong</li>
+        <li><strong>Independent instances</strong> beat self-review, every time</li>
+        <li><strong>Context isolation</strong> beats sharing everything, every time</li>
+        <li>When in doubt, ask: "Would this break in production if the model is slightly inconsistent?" If yes, eliminate it.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- DOMAIN 1 -->
+  <section id="domain1">
+    <div class="domain-header">
+      <span class="domain-tag d1-tag">Domain 1 — 27%</span>
+    </div>
+    <h2>🤖 Agentic Architecture & Orchestration</h2>
+    <p>This is the biggest domain. Expect ~16 questions. Master this domain and you're already most of the way to passing.</p>
+
+    <h3>What Is an Agentic System?</h3>
+    <p>An agent is a system where <strong>Claude decides what to do next</strong>, rather than following a pre-scripted sequence. It has: a goal, access to tools, and a loop that runs until the goal is complete.</p>
+
+    <div class="concept-row">
+      <div class="concept-card">
+        <div class="cterm">Agentic System</div>
+        <div class="cdef">Claude autonomously decides tool usage and action sequence to complete a goal</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">Workflow</div>
+        <div class="cdef">Pre-defined sequence of steps — Claude fills in each step, but the order is fixed</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">Conversational System</div>
+        <div class="cdef">Back-and-forth chat — no persistent action loop, no tool execution autonomy</div>
+      </div>
+    </div>
+
+    <div class="callout key">
+      <div class="callout-title">📌 When to use which</div>
+      <ul>
+        <li><strong>Agentic:</strong> tasks are complex, multi-step, dynamic, require tool calls across varying sequences</li>
+        <li><strong>Workflow:</strong> steps are known upfront, order matters, each step can be pre-defined</li>
+        <li><strong>Conversational:</strong> user is the decision-maker, Claude is advisor/assistant, no autonomy needed</li>
+      </ul>
+    </div>
+
+    <h3>The Agentic Loop — Core Architecture</h3>
+    <p>This is tested heavily. Know every piece of this loop:</p>
+
+    <pre><code>1. Send request to Claude API (with tools defined)
+2. Receive response → check stop_reason
+   - "tool_use" → Claude wants to call a tool
+   - "end_turn" → Claude is done, loop terminates
+3. If "tool_use" → execute the requested tool
+4. Append tool result to conversation history
+5. Send updated history back to Claude → go to step 2</code></pre>
+
+    <div class="callout warn">
+      <div class="callout-title">🚫 Exam Traps in Agentic Loop</div>
+      <ul>
+        <li><strong>WRONG:</strong> Stop when assistant message contains "task complete" → natural language parsing, unreliable</li>
+        <li><strong>WRONG:</strong> Set a fixed max iteration cap as the only stopping mechanism → arbitrary, brittle</li>
+        <li><strong>WRONG:</strong> Check for absence of tool_use blocks to terminate → indirect, fragile</li>
+        <li><strong>RIGHT:</strong> Terminate when <code>stop_reason === "end_turn"</code> — this is the official contract</li>
+      </ul>
+    </div>
+
+    <h3>Multi-Agent Topology Patterns</h3>
+
+    <div class="concept-row">
+      <div class="concept-card">
+        <div class="cterm">Hub-and-Spoke</div>
+        <div class="cdef">One orchestrator agent coordinates multiple specialist subagents. Most common pattern. Orchestrator holds state.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">Pipeline</div>
+        <div class="cdef">Output of one agent feeds input of the next. Good for sequential transforms (extract → analyze → summarize).</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">Peer-to-Peer</div>
+        <div class="cdef">Agents communicate directly. More complex. Used when cross-agent collaboration is dynamic.</div>
+      </div>
+    </div>
+
+    <h3>Orchestrator vs Subagent Roles</h3>
+    <table>
+      <thead>
+        <tr><th>Aspect</th><th>Orchestrator</th><th>Subagent</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Responsibility</td><td>Decompose task, delegate, aggregate results</td><td>Execute one focused task and return result</td></tr>
+        <tr><td>Context it holds</td><td>Full task state, user goal, all subagent outputs</td><td>Only what's needed for its specific task</td></tr>
+        <tr><td>Decision-making</td><td>Which subagent to call next, when to stop</td><td>How to complete its assigned task</td></tr>
+        <tr><td>Scope</td><td>Broad, cross-cutting</td><td>Narrow, specialized</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout key">
+      <div class="callout-title">🔑 Context Isolation Rule</div>
+      <p>Subagents should receive <strong>only task-relevant context</strong>, not the orchestrator's full history. This prevents reasoning pollution, reduces token cost, and improves subagent accuracy.</p>
+    </div>
+
+    <h3>Task Decomposition & Planning</h3>
+    <ul>
+      <li><strong>Sequential execution:</strong> steps depend on each other → run one at a time. Use when step B needs step A's output.</li>
+      <li><strong>Parallel execution:</strong> steps are independent → run simultaneously. Use to reduce latency when tasks don't share dependencies.</li>
+      <li><strong>Dynamic replanning:</strong> the agent updates its plan based on intermediate results. Essential for open-ended tasks.</li>
+      <li><strong>Ambiguity handling:</strong> when task is unclear, the agent should ask for clarification before acting, not guess.</li>
+    </ul>
+
+    <h3>Error Classification & Fallback</h3>
+    <div class="concept-row">
+      <div class="concept-card">
+        <div class="cterm">Tool Errors</div>
+        <div class="cdef">The external service/API failed. Retry with backoff. After N failures, escalate or use fallback tool.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">Reasoning Errors</div>
+        <div class="cdef">Claude made a logic mistake. Use independent review instance. Don't retry the same prompt blindly.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">Environment Errors</div>
+        <div class="cdef">Infrastructure/state issue. Log, surface to human-in-the-loop, checkpoint state for resume.</div>
+      </div>
+    </div>
+
+    <h3>Human-in-the-Loop (HITL) Design</h3>
+    <p>Know WHEN to escalate to a human, not just how:</p>
+    <ul>
+      <li>When the task involves <strong>irreversible actions</strong> (deleting data, sending emails, charging money)</li>
+      <li>When the agent's <strong>confidence is below a threshold</strong> you define</li>
+      <li>When the request is <strong>out of scope</strong> for the agent's authorized capabilities</li>
+      <li>When <strong>sensitive data</strong> or regulated actions are involved</li>
+      <li>Customer support scenario: escalate billing disputes over a certain threshold, legal threats, abusive interactions</li>
+    </ul>
+
+    <h3>Guardrails: Programmatic vs Prompt-Based</h3>
+    <div class="callout warn">
+      <div class="callout-title">⚠️ This Is a High-Frequency Exam Trap</div>
+      <p><strong>Prompt-based guardrails</strong> ("Tell Claude in the system prompt not to do X") are <strong>advisory only</strong> — they can be circumvented or ignored. For production safety, <strong>programmatic enforcement</strong> at the tool, API, or infrastructure layer is required.</p>
+      <p>Example: Don't say "only read files in /safe". Instead, enforce that at the filesystem/tool level so the tool physically cannot access /unsafe.</p>
+    </div>
+
+    <h3>Multi-Pass Review Architecture</h3>
+    <ul>
+      <li>A model reviewing its <strong>own</strong> output in the same session is ineffective — it retains its original reasoning context and is unlikely to question its own decisions</li>
+      <li>Use a <strong>separate, independent Claude instance</strong> that doesn't have the generator's context</li>
+      <li>For large codebases, split review into <strong>local passes</strong> (per-file issues) + <strong>integration passes</strong> (cross-file data flow) to avoid attention dilution</li>
+    </ul>
+
+    <h3>State & Memory Types</h3>
+    <div class="concept-row">
+      <div class="concept-card">
+        <div class="cterm">In-Context Memory</div>
+        <div class="cdef">Conversation history in the current context window. Fast, but temporary and size-limited.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">External Memory</div>
+        <div class="cdef">Database or vector store. Persistent, scalable. Must be explicitly retrieved and injected.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOMAIN 2 -->
+  <section id="domain2">
+    <div class="domain-header">
+      <span class="domain-tag d3-tag">Domain 2 — 20%</span>
+    </div>
+    <h2>💻 Claude Code Configuration & Workflows</h2>
+    <p>~12 questions. Tests your knowledge of Claude Code's configuration system, tooling, and CI/CD usage.</p>
+
+    <h3>What Is Claude Code?</h3>
+    <p>Claude Code is a command-line AI coding assistant. It has its own <strong>tool system</strong> (Read, Write, Bash, Grep, Glob, WebFetch, etc.) and a <strong>configuration hierarchy</strong> via CLAUDE.md files.</p>
+
+    <h3>CLAUDE.md Hierarchy — Know This Cold</h3>
+    <p>Configuration cascades from broad to specific. More specific files override less specific ones.</p>
+
+    <table>
+      <thead>
+        <tr><th>Level</th><th>File Location</th><th>Scope</th><th>Who Controls It</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>User</td><td><code>~/.claude/CLAUDE.md</code></td><td>All projects for this user</td><td>Individual developer</td></tr>
+        <tr><td>Project (root)</td><td><code>./CLAUDE.md</code></td><td>Entire project</td><td>Team/repo owner</td></tr>
+        <tr><td>Subdirectory</td><td><code>./subdir/CLAUDE.md</code></td><td>That directory and below</td><td>Module owner</td></tr>
+      </tbody>
+    </table>
+
+    <div class="callout tip">
+      <div class="callout-title">✅ Precedence Rule</div>
+      <p>More specific (deeper in the directory tree) overrides less specific. Subdirectory CLAUDE.md beats project root CLAUDE.md beats user CLAUDE.md.</p>
+    </div>
+
+    <h3>.claudeignore</h3>
+    <p>Works like <code>.gitignore</code> — tells Claude Code which files and directories to exclude from its context. Use to prevent Claude from reading secrets, build artifacts, or irrelevant large files.</p>
+
+    <h3>Custom Slash Commands</h3>
+    <ul>
+      <li>Defined in <code>.claude/commands/</code> directory as Markdown files</li>
+      <li>The filename becomes the command name: <code>review-pr.md</code> → <code>/review-pr</code></li>
+      <li>The file content is the prompt template Claude executes</li>
+      <li>Can include <strong>argument placeholders</strong> for dynamic content</li>
+      <li>Distributed to teams by committing to the project repo</li>
+    </ul>
+
+    <h3>Skills (SKILL.md)</h3>
+    <ul>
+      <li>SKILL.md files encode reusable best practices that Claude should follow for a specific task type</li>
+      <li>Have <strong>frontmatter</strong> metadata (name, description, triggers)</li>
+      <li>Claude reads the relevant SKILL.md before attempting a task type that matches</li>
+      <li>Enterprise: skills can be deployed across all team members via shared config</li>
+    </ul>
+
+    <h3>Hooks — Lifecycle Events</h3>
+    <p>Hooks let you inject custom logic at key points in Claude Code's execution lifecycle.</p>
+    <div class="concept-row">
+      <div class="concept-card">
+        <div class="cterm">PreToolCall</div>
+        <div class="cdef">Runs before Claude executes a tool. Use for safety checks, logging, permission gates.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">PostToolCall</div>
+        <div class="cdef">Runs after a tool call. Use for logging results, side effects, audit trails.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">Exit Codes</div>
+        <div class="cdef">Hook exit code 0 = allow, non-zero = block. This is programmatic enforcement.</div>
+      </div>
+    </div>
+
+    <div class="callout key">
+      <div class="callout-title">🔑 Hooks = Programmatic Guardrails</div>
+      <p>If an exam question asks how to <em>prevent</em> Claude Code from doing something dangerous (deleting files, accessing prod DBs), the answer involves <strong>hooks with non-zero exit codes</strong> — NOT just instructing it in CLAUDE.md.</p>
+    </div>
+
+    <h3>Subagents in Claude Code</h3>
+    <ul>
+      <li>Claude Code can spawn subagents for delegated tasks</li>
+      <li>Each subagent gets its own <strong>scoped context</strong> — they don't inherit the full parent session</li>
+      <li>Subagents are configured with specific tool permissions and constraints</li>
+    </ul>
+
+    <h3>Claude Code in CI/CD</h3>
+    <ul>
+      <li><code>-p "your prompt"</code> — non-interactive (headless) mode for automation</li>
+      <li><code>--output-format json</code> — structured output for parsing in pipelines</li>
+      <li><code>--no-interactive</code> — prevents Claude from asking clarifying questions mid-run</li>
+      <li><strong>Session isolation:</strong> each CI run should start a fresh session to prevent context leakage between runs</li>
+      <li>For code review in CI: minimize false positives by giving clear scope (what changed, what to ignore)</li>
+    </ul>
+
+    <h3>Plan Mode</h3>
+    <p>Before Claude Code takes actions, it can enter <strong>plan mode</strong> where it explains what it intends to do and waits for confirmation. Use for high-risk, irreversible, or complex operations to give the human a chance to course-correct.</p>
+
+    <h3>Writing Effective CLAUDE.md Instructions</h3>
+    <ul>
+      <li>Be specific and prescriptive, not vague ("always use TypeScript strict mode" not "write good code")</li>
+      <li>Define what tools Claude is <em>not</em> allowed to use in this context</li>
+      <li>Include project-specific conventions (testing frameworks, code style, branch naming)</li>
+      <li>Keep team-level rules in the project root CLAUDE.md, personal preferences in user-level</li>
+    </ul>
+  </section>
+
+  <!-- DOMAIN 3 -->
+  <section id="domain3">
+    <div class="domain-header">
+      <span class="domain-tag d2-tag">Domain 3 — 20%</span>
+    </div>
+    <h2>✍️ Prompt Engineering & Structured Output</h2>
+    <p>~12 questions. Tests both core prompting techniques and structured output reliability for production systems.</p>
+
+    <h3>Core Prompt Engineering Principles</h3>
+
+    <div class="concept-row">
+      <div class="concept-card">
+        <div class="cterm">System Prompt</div>
+        <div class="cdef">Sets role, constraints, output format, persona. Applies to the whole conversation. Put stable context here.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">User Prompt</div>
+        <div class="cdef">The specific task or question. Dynamic per request.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">Few-Shot Examples</div>
+        <div class="cdef">Showing Claude input→output pairs before the actual task. Dramatically improves format compliance.</div>
+      </div>
+    </div>
+
+    <h3>The PRECISE Framework (Exam-tested)</h3>
+    <table>
+      <thead>
+        <tr><th>Letter</th><th>Element</th><th>What It Means</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>P</strong></td><td>Persona</td><td>Who Claude should act as ("You are a senior security engineer…")</td></tr>
+        <tr><td><strong>R</strong></td><td>Role</td><td>The task role it should play</td></tr>
+        <tr><td><strong>E</strong></td><td>Examples</td><td>Few-shot examples of good input/output</td></tr>
+        <tr><td><strong>C</strong></td><td>Constraints</td><td>What it must or must not do</td></tr>
+        <tr><td><strong>I</strong></td><td>Instructions</td><td>Step-by-step guidance for the task</td></tr>
+        <tr><td><strong>S</strong></td><td>Style</td><td>Tone, format, length requirements</td></tr>
+        <tr><td><strong>E</strong></td><td>Evaluation</td><td>How success is measured</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Few-Shot Prompting</h3>
+    <ul>
+      <li>Show 2-5 examples of what good output looks like before the actual request</li>
+      <li>Especially effective for format compliance — if you want JSON, show JSON examples</li>
+      <li>Examples should cover edge cases, not just the happy path</li>
+      <li><strong>Negative examples</strong> (showing what NOT to do) can be as powerful as positive ones</li>
+    </ul>
+
+    <h3>Chain-of-Thought (CoT) Prompting</h3>
+    <ul>
+      <li>Ask Claude to "think step by step" or "reason through this before giving an answer"</li>
+      <li>Significantly improves accuracy on multi-step reasoning tasks</li>
+      <li>For production: consider prompting for CoT in a scratchpad, then extract the final answer separately</li>
+      <li>Extended thinking: Claude can be configured to produce longer internal reasoning chains</li>
+    </ul>
+
+    <h3>Structured Output — JSON Schema Enforcement</h3>
+    <p>This is critical for the data extraction scenario and any production use case that parses Claude's output programmatically.</p>
+
+    <pre><code>{
+  "type": "object",
+  "required": ["invoice_id", "total"],
+  "properties": {
+    "invoice_id": { "type": "string" },
+    "total": { "type": "number" },
+    "line_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": { "type": "string" },
+          "amount": { "type": ["number", "null"] }  // ← nullable!
+        }
+      }
+    }
+  }
+}</code></pre>
+
+    <div class="callout warn">
+      <div class="callout-title">⚠️ Nullable Fields — High-Exam-Value Concept</div>
+      <p>When extracting data from documents, <strong>not all fields will always be present</strong>. If you make every field required, Claude will <strong>hallucinate values</strong> to fill them. Make optional fields <code>nullable</code> (<code>"type": ["string", "null"]</code>) so Claude can return <code>null</code> instead of inventing data.</p>
+    </div>
+
+    <h3>Validation Retry Loop</h3>
+    <p>Don't trust unvalidated structured output in production. Use this pattern:</p>
+    <pre><code>1. Send prompt requesting JSON
+2. Receive output
+3. Validate against JSON schema
+4. If validation FAILS → send error message + retry prompt to Claude
+5. Repeat up to N times
+6. If still failing after N retries → escalate / fallback</code></pre>
+
+    <h3>Prompt Injection Defense</h3>
+    <ul>
+      <li>Prompt injection: malicious content in user input or tool results that tries to override system instructions</li>
+      <li>Defense: <strong>clearly delimit</strong> user content from instructions (use XML tags, explicit markers)</li>
+      <li>Defense: <strong>don't blindly execute</strong> instructions found in tool results without validation</li>
+      <li>Defense: programmatic filters on what tool results can be passed back to Claude</li>
+    </ul>
+
+    <h3>Prompting for Code Generation</h3>
+    <ul>
+      <li>Include the language, framework, and version in the system prompt</li>
+      <li>Specify testing requirements upfront</li>
+      <li>Ask for code + explanation in separate sections</li>
+      <li>Use role prompting: "You are a senior Python engineer who writes production-quality, well-tested code"</li>
+    </ul>
+
+    <h3>Evaluating Prompt Quality</h3>
+    <ul>
+      <li>Define clear <strong>success metrics</strong> before writing the prompt</li>
+      <li>Test with <strong>adversarial inputs</strong> — edge cases, ambiguous phrasing, missing data</li>
+      <li>Use <strong>automated evaluation</strong> with expected outputs when possible</li>
+      <li>Track <strong>false positive rate</strong> for tasks like code review — high FPR destroys developer trust</li>
+    </ul>
+  </section>
+
+  <!-- DOMAIN 4 -->
+  <section id="domain4">
+    <div class="domain-header">
+      <span class="domain-tag d4-tag">Domain 4 — 18%</span>
+    </div>
+    <h2>🔧 Tool Design & MCP Integration</h2>
+    <p>~11 questions. Tests tool schema design principles and Model Context Protocol (MCP) architecture.</p>
+
+    <h3>What Is MCP (Model Context Protocol)?</h3>
+    <p>MCP is Anthropic's open standard for connecting Claude to external tools and data sources. Think of it as the <strong>"USB-C for AI"</strong> — a universal protocol that any service can implement to become usable by Claude.</p>
+
+    <div class="concept-row">
+      <div class="concept-card">
+        <div class="cterm">MCP Server</div>
+        <div class="cdef">A service that exposes tools/resources Claude can call. You build this for your external service.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">MCP Client</div>
+        <div class="cdef">Claude (or the host application) that calls the MCP server's tools.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">Transport Layers</div>
+        <div class="cdef"><strong>stdio</strong>: local process communication. <strong>SSE (Server-Sent Events)</strong>: remote/HTTP-based communication.</div>
+      </div>
+    </div>
+
+    <h3>MCP Transport: stdio vs SSE</h3>
+    <table>
+      <thead>
+        <tr><th>Transport</th><th>Use When</th><th>Key Characteristic</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>stdio</strong></td><td>Local tools running on the same machine as Claude Code</td><td>Low latency, simple, no network config needed</td></tr>
+        <tr><td><strong>SSE</strong></td><td>Remote services, cloud APIs, multi-user scenarios</td><td>HTTP-based, works across network boundaries</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Tool Schema Design Principles</h3>
+    <p>Tool schemas define what Claude can call. Good schemas make Claude more accurate. Poor schemas cause reasoning errors.</p>
+
+    <div class="callout key">
+      <div class="callout-title">🔑 Core Tool Design Rules</div>
+      <ul>
+        <li><strong>One logical operation per tool.</strong> Don't combine search + filter + summarize into one tool. Give Claude individual, composable tools.</li>
+        <li><strong>Clear, descriptive names.</strong> <code>search_customer_by_email</code> not <code>customerSearch</code>.</li>
+        <li><strong>Rich descriptions.</strong> Describe exactly when to use this tool vs alternatives. Claude reads descriptions to decide which tool to call.</li>
+        <li><strong>Required vs optional parameters.</strong> Only make things required if they truly are.</li>
+        <li><strong>Enum constraints.</strong> When a parameter has a fixed set of valid values, enumerate them. This prevents the model from guessing wrong values.</li>
+      </ul>
+    </div>
+
+    <h3>Tool Schema Example (Right vs Wrong)</h3>
+    <table>
+      <thead>
+        <tr><th>Aspect</th><th class="wrong">Wrong</th><th class="right">Right</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Tool name</td><td class="wrong"><code>doStuff</code></td><td class="right"><code>update_ticket_status</code></td></tr>
+        <tr><td>Description</td><td class="wrong">"Updates things"</td><td class="right">"Updates the status of a support ticket. Use when the user's issue has been resolved or requires escalation."</td></tr>
+        <tr><td>Status param</td><td class="wrong"><code>{"type": "string"}</code></td><td class="right"><code>{"type": "string", "enum": ["open", "resolved", "escalated"]}</code></td></tr>
+        <tr><td>Granularity</td><td class="wrong">One tool handles search, update, and delete</td><td class="right">Separate tools: <code>search_ticket</code>, <code>update_ticket</code>, <code>delete_ticket</code></td></tr>
+      </tbody>
+    </table>
+
+    <h3>Preventing Reasoning Overload</h3>
+    <p>If Claude has too many tools, or tools that are too complex/overlapping, it struggles to choose the right one. Mitigation:</p>
+    <ul>
+      <li>Limit tool count per agent to what's relevant for its task scope</li>
+      <li>Use different tool sets for different subagents (each subagent only sees its own tools)</li>
+      <li>Group related tools under a clear domain (all customer tools vs all billing tools)</li>
+    </ul>
+
+    <h3>MCP Security Considerations</h3>
+    <ul>
+      <li><strong>Authentication:</strong> MCP servers should verify that the calling client is authorized</li>
+      <li><strong>Scope limiting:</strong> each MCP server should only expose the minimum tools needed for its use case</li>
+      <li><strong>Tool result validation:</strong> validate what the MCP server returns before passing it back to Claude (defense against injection)</li>
+      <li><strong>Read vs write separation:</strong> separate read-only tools from write/mutation tools; give agents only what they need</li>
+    </ul>
+
+    <h3>Claude Code Built-In Tools</h3>
+    <div class="concept-row">
+      <div class="concept-card"><div class="cterm">Read</div><div class="cdef">Read file contents from the filesystem</div></div>
+      <div class="concept-card"><div class="cterm">Write</div><div class="cdef">Write/create files on the filesystem</div></div>
+      <div class="concept-card"><div class="cterm">Bash</div><div class="cdef">Execute shell commands</div></div>
+      <div class="concept-card"><div class="cterm">Grep</div><div class="cdef">Search file contents by pattern</div></div>
+      <div class="concept-card"><div class="cterm">Glob</div><div class="cdef">Find files matching a pattern</div></div>
+      <div class="concept-card"><div class="cterm">WebFetch</div><div class="cdef">Retrieve content from a URL</div></div>
+    </div>
+  </section>
+
+  <!-- DOMAIN 5 -->
+  <section id="domain5">
+    <div class="domain-header">
+      <span class="domain-tag d5-tag">Domain 5 — 15%</span>
+    </div>
+    <h2>🧠 Context Management & Reliability</h2>
+    <p>~9 questions. Tests how to manage context windows, avoid degradation, and build reliable long-running systems.</p>
+
+    <h3>Context Window Fundamentals</h3>
+    <ul>
+      <li>Context window = the amount of text Claude can "see" at once (input + output tokens combined)</li>
+      <li>As context fills up, performance can degrade — Claude may lose track of earlier content</li>
+      <li><strong>Attention dilution:</strong> when too much is in context, Claude may not give equal weight to all of it</li>
+      <li>For large codebases or long conversations, you <em>must</em> manage context actively</li>
+    </ul>
+
+    <h3>Context Management Strategies</h3>
+    <div class="concept-row">
+      <div class="concept-card">
+        <div class="cterm">Summarization</div>
+        <div class="cdef">Compress earlier conversation turns into a summary. Keeps context fresh at the cost of some detail loss.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">Retrieval-Augmented</div>
+        <div class="cdef">Store information externally (vector DB), retrieve only what's relevant for the current turn and inject it.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">Sliding Window</div>
+        <div class="cdef">Keep only the last N turns in context. Simple but risks losing important earlier context.</div>
+      </div>
+      <div class="concept-card">
+        <div class="cterm">Prompt Caching</div>
+        <div class="cdef">Cache expensive prefix content (system prompt, large doc) to reduce cost and latency on repeated calls.</div>
+      </div>
+    </div>
+
+    <h3>Prompt Caching</h3>
+    <ul>
+      <li>Expensive stable content (system prompts, reference documents) can be cached at the API level</li>
+      <li>Cached tokens are cheaper to process on subsequent calls</li>
+      <li>Cache the parts of the prompt that <strong>don't change</strong> between requests</li>
+      <li>Dynamic content (the user's current question) is NOT cached</li>
+    </ul>
+
+    <h3>Long Context Reliability Patterns</h3>
+    <ul>
+      <li><strong>Chunking:</strong> break large documents into chunks, process separately, then aggregate</li>
+      <li><strong>Map-reduce pattern:</strong> map = process each chunk independently; reduce = combine results into final answer</li>
+      <li><strong>Per-file + integration passes</strong> for code review (see Domain 1 — multi-pass review)</li>
+    </ul>
+
+    <h3>Handoff Patterns Between Sessions</h3>
+    <p>Claude has no memory between separate API calls. For workflows that span sessions:</p>
+    <ul>
+      <li>Save a <strong>structured state object</strong> to external storage at checkpoints</li>
+      <li>On new session start, inject the state object into the system prompt or first user message</li>
+      <li>Include enough context to resume meaningfully, not the entire history verbatim</li>
+    </ul>
+
+    <h3>Confidence Calibration</h3>
+    <ul>
+      <li>Ask Claude to self-report confidence alongside each output: "Rate your confidence 1-10 and explain why"</li>
+      <li>Route low-confidence outputs to a human reviewer or secondary verification step</li>
+      <li>Don't use a single arbitrary threshold for all cases — calibrate per task type</li>
+      <li>For verification passes: the model self-reports confidence per finding, enabling <strong>calibrated review routing</strong></li>
+    </ul>
+
+    <h3>Reliability in Production</h3>
+    <ul>
+      <li><strong>Retry with exponential backoff</strong> for transient errors (rate limits, 5xx errors)</li>
+      <li><strong>Fallback models:</strong> if primary model fails or is too slow, route to a backup</li>
+      <li><strong>Timeout handling:</strong> set explicit timeouts; never let an agent loop forever on a stuck state</li>
+      <li><strong>Idempotent tool calls:</strong> design tools so calling them twice doesn't double the effect (important for retries)</li>
+      <li><strong>Structured logging:</strong> log every tool call, its inputs, outputs, and the stop_reason. Essential for debugging agentic loops.</li>
+    </ul>
+
+    <h3>Context Window Anti-Patterns</h3>
+    <div class="callout warn">
+      <div class="callout-title">⚠️ Common Context Mistakes (Exam Traps)</div>
+      <ul>
+        <li><strong>Dumping entire codebase into context</strong> → attention dilution, worse results than targeted retrieval</li>
+        <li><strong>Including all past conversation turns verbatim</strong> → context explosion, costly, eventually fails</li>
+        <li><strong>Passing full orchestrator history to subagents</strong> → pollution, confusion, wasted tokens</li>
+        <li><strong>Never clearing context between CI runs</strong> → previous run artifacts affect current run</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- QUICK REFERENCE -->
+  <section id="quick-ref">
+    <h2>⚡ Quick Reference — Last-Minute Review</h2>
+
+    <div class="ref-grid">
+      <div class="ref-card">
+        <div class="rtitle">Agentic Loop</div>
+        <ul>
+          <li>Terminate on <code>stop_reason === "end_turn"</code></li>
+          <li>Continue on <code>"tool_use"</code></li>
+          <li>Append tool results to history</li>
+          <li>Never: parse text for "done"</li>
+        </ul>
+      </div>
+      <div class="ref-card">
+        <div class="rtitle">CLAUDE.md Precedence</div>
+        <ul>
+          <li>Subdirectory overrides</li>
+          <li>Project root overrides</li>
+          <li>User (~/.claude) = lowest</li>
+        </ul>
+      </div>
+      <div class="ref-card">
+        <div class="rtitle">CI/CD Flags</div>
+        <ul>
+          <li><code>-p "prompt"</code> = headless</li>
+          <li><code>--output-format json</code></li>
+          <li>Fresh session each run</li>
+        </ul>
+      </div>
+      <div class="ref-card">
+        <div class="rtitle">JSON Schema Tips</div>
+        <ul>
+          <li>Optional fields → nullable</li>
+          <li>Enum for fixed values</li>
+          <li>Validate + retry on fail</li>
+        </ul>
+      </div>
+      <div class="ref-card">
+        <div class="rtitle">MCP Transport</div>
+        <ul>
+          <li>stdio = local process</li>
+          <li>SSE = remote/HTTP</li>
+          <li>One operation per tool</li>
+        </ul>
+      </div>
+      <div class="ref-card">
+        <div class="rtitle">Review Architecture</div>
+        <ul>
+          <li>Independent instance, not self</li>
+          <li>Local pass + integration pass</li>
+          <li>Confidence routing</li>
+        </ul>
+      </div>
+      <div class="ref-card">
+        <div class="rtitle">Guardrails</div>
+        <ul>
+          <li>Programmatic > prompt-based</li>
+          <li>Hooks: exit 0 allow, non-0 block</li>
+          <li>Enforce at infra layer</li>
+        </ul>
+      </div>
+      <div class="ref-card">
+        <div class="rtitle">Context Management</div>
+        <ul>
+          <li>Summarize long history</li>
+          <li>RAG for large docs</li>
+          <li>Cache stable prefixes</li>
+          <li>Isolate subagent context</li>
+        </ul>
+      </div>
+      <div class="ref-card">
+        <div class="rtitle">HITL Escalation</div>
+        <ul>
+          <li>Irreversible actions</li>
+          <li>Low confidence threshold</li>
+          <li>Out-of-scope requests</li>
+          <li>Sensitive/regulated data</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout exam" style="margin-top: 32px;">
+      <div class="callout-title">🎓 Exam Day Checklist</div>
+      <ul>
+        <li><strong>2 minutes per question</strong> — you have 120 min for 60 questions, don't overthink</li>
+        <li><strong>Eliminate first</strong> — cross off the 2 clearly wrong options, then choose between the remaining 2</li>
+        <li><strong>Ask: "Would this break in production?"</strong> — if yes, eliminate it</li>
+        <li><strong>Explicit > implicit</strong> — structured, programmatic, official mechanisms beat heuristic/prompt-based ones</li>
+        <li><strong>Independent &gt; self</strong> — for any review/verification task, independent instance beats self-review</li>
+        <li><strong>Isolated context &gt; shared</strong> — for subagents, less shared context is better unless explicitly needed</li>
+        <li>Questions are <strong>scenario-anchored</strong> — re-read the scenario context if a question seems ambiguous</li>
+        <li>Passing score is <strong>720/1000 (72%)</strong> — that's about 43/60 questions correct. You have some room.</li>
+      </ul>
+    </div>
+  </section>
+
+  <div style="text-align:center; color: var(--muted); font-size: 13px; padding-top: 40px; border-top: 1px solid var(--border);">
+    CCA-F Complete Study Guide · Based on official exam domains · Good luck tomorrow 🚀
+  </div>
+
+</div>
+</body>
+</html>
